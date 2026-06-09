@@ -80,25 +80,19 @@ void _draw() {
   if (millis() - _last_draw < 2000) return;
   _last_draw = millis();
 
-  // Always show Sensors on LCD
-  // Row 0: M:XX.X% T:XX.XC
+  // Row 0: NeuroVP T:XX.XC
   _lcd.setCursor(0, 0);
+  _lcd.print("NeuroVP T:");
+  _lcd.print(_t, 1);
+  _lcd.print("C ");
+
+  // Row 1: M:XX.X% H:XX.X%
+  _lcd.setCursor(0, 1);
   _lcd.print("M:");
   _lcd.print(_m, 1);
-  _lcd.print("% T:");
-  _lcd.print(_t, 1);
-  _lcd.print("C  "); // extra spaces to clear old text
-
-  // Row 1: H:XX.X% Pump:ON
-  _lcd.setCursor(0, 1);
-  _lcd.print("H:");
+  _lcd.print("% H:");
   _lcd.print(_h, 1);
-  _lcd.print("% Pump:");
-  if (_override) {
-    _lcd.print("OVR");
-  } else {
-    _lcd.print(_pump ? "ON " : "OFF");
-  }
+  _lcd.print("% ");
 }
 
 void _mq_cb(char* topic, byte* payload, unsigned int len) {
@@ -179,7 +173,7 @@ void setup() {
   pinMode(PIN_MOIST, INPUT);
   digitalWrite(PIN_RELAY, LOW);
   _dht.begin();
-  Wire.begin();
+  Wire.begin(21, 22);
   _lcd.init();
   _lcd.backlight();
   _lcd.setCursor(0, 0);

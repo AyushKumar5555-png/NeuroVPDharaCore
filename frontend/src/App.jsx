@@ -32,6 +32,7 @@ import {
 } from 'recharts';
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('Dashboard');
   const BASE_URL = window.location.port === '5173' ? 'http://localhost:8000' : '';
 
   // Telemetry States
@@ -240,8 +241,9 @@ export default function App() {
           {['Dashboard', 'Analytics', 'Research', 'Recommendations', 'Market', 'Settings'].map((tab) => (
             <button
               key={tab}
+              onClick={() => setActiveTab(tab)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                tab === 'Dashboard' 
+                activeTab === tab 
                   ? 'bg-[rgba(0,230,118,0.2)] text-[#00e676] border border-[rgba(0,230,118,0.3)] shadow-[0_0_10px_rgba(0,230,118,0.25)]' 
                   : 'text-[#80cbc4] hover:text-[#e0f2f1]'
               }`}
@@ -358,463 +360,672 @@ export default function App() {
         {/* Main Content Area */}
         <main className="main-content">
           
-          {/* Telemetry Row Cards (5 cards) */}
-          <div className="telemetry-row">
-            
-            {/* Card 1: Temp */}
-            <div className="glossy-panel p-4 flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#80cbc4] font-semibold">Temperature</span>
-                <Thermometer className="w-5 h-5 text-[#ff9100]" />
-              </div>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {telemetry.temperature}
-                </span>
-                <span className="text-sm text-[#80cbc4]">°C</span>
-              </div>
-              <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Normal</span>
-            </div>
-
-            {/* Card 2: Humidity */}
-            <div className="glossy-panel p-4 flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#80cbc4] font-semibold">Humidity</span>
-                <Droplet className="w-5 h-5 text-[#00e5ff]" />
-              </div>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {telemetry.humidity}
-                </span>
-                <span className="text-sm text-[#80cbc4]">%</span>
-              </div>
-              <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Normal</span>
-            </div>
-
-            {/* Card 3: Moisture */}
-            <div className="glossy-panel p-4 flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#80cbc4] font-semibold">Soil Moisture</span>
-                <Sprout className="w-5 h-5 text-[#00e676]" />
-              </div>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {telemetry.soil_moisture}
-                </span>
-                <span className="text-sm text-[#80cbc4]">%</span>
-              </div>
-              <span className="text-[10px] text-[#ff9100] bg-[rgba(255,145,0,0.08)] py-0.5 px-2 rounded-full self-start">Moderate</span>
-            </div>
-
-            {/* Card 4: Pump */}
-            <div 
-              onClick={handlePumpToggle}
-              className="glossy-panel p-4 flex flex-col gap-2 cursor-pointer hover:border-[#00e676] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#80cbc4] font-semibold">Pump Status</span>
-                <Activity className={`w-5 h-5 ${telemetry.pump_status === 'ON' ? 'text-[#00e676] pulse-active' : 'text-[#80cbc4]'}`} />
-              </div>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className={`text-2xl font-bold font-outfit ${telemetry.pump_status === 'ON' ? 'text-[#00e676]' : 'text-[#80cbc4]'}`} style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {telemetry.pump_status}
-                </span>
-              </div>
-              <span className={`text-[10px] py-0.5 px-2 rounded-full self-start ${
-                telemetry.pump_status === 'ON' 
-                  ? 'text-[#00e676] bg-[rgba(0,230,118,0.08)] font-semibold' 
-                  : 'text-[#80cbc4] bg-[rgba(255,255,255,0.03)]'
-              }`}>
-                {telemetry.pump_status === 'ON' ? 'Irrigation Active' : 'System Stable'}
-              </span>
-            </div>
-
-            {/* Card 5: Water Level */}
-            <div className="glossy-panel p-4 flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#80cbc4] font-semibold">Water Level</span>
-                <Droplet className="w-5 h-5 text-[#00e5ff]" />
-              </div>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {telemetry.water_level}
-                </span>
-                <span className="text-sm text-[#80cbc4]">%</span>
-              </div>
-              <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Good</span>
-            </div>
-
-          </div>
-
-          {/* Row 2: Graph and History */}
-          <div className="middle-row">
-            
-            {/* Trend Chart Panel */}
-            <div className="glossy-panel p-4 flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>Sensor Trends (24 Hours)</h3>
-                <div className="flex items-center gap-4 text-xs text-[#80cbc4]">
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-0.5 bg-[#ff9100]"></span>Temperature (°C)</span>
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-0.5 bg-[#00e5ff]"></span>Humidity (%)</span>
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-0.5 bg-[#00e676]"></span>Soil Moisture (%)</span>
+          {activeTab === 'Dashboard' && (
+            <>
+              {/* Telemetry Row Cards (5 cards) */}
+              <div className="telemetry-row">
+                
+                {/* Card 1: Temp */}
+                <div className="glossy-panel p-4 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#80cbc4] font-semibold">Temperature</span>
+                    <Thermometer className="w-5 h-5 text-[#ff9100]" />
+                  </div>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      {telemetry.temperature}
+                    </span>
+                    <span className="text-sm text-[#80cbc4]">°C</span>
+                  </div>
+                  <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Normal</span>
                 </div>
-              </div>
-              
-              <div className="w-full h-[220px]">
-                <ResponsiveContainer width="100%" height={220} minWidth={0}>
-                  <LineChart data={trends} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.03)" />
-                    <XAxis dataKey="time" stroke="#4db6ac" fontSize={10} tickLine={false} />
-                    <YAxis stroke="#4db6ac" fontSize={10} tickLine={false} domain={[0, 100]} />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: '#0a151b', 
-                        borderColor: 'rgba(0, 230, 118, 0.2)',
-                        borderRadius: '8px',
-                        boxShadow: 'var(--shadow-3d)'
-                      }} 
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="temp" 
-                      stroke="#ff9100" 
-                      strokeWidth={2.5} 
-                      dot={false}
-                      activeDot={{ r: 6, stroke: '#ff9100', strokeWidth: 2, fill: '#060e12' }}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="humidity" 
-                      stroke="#00e5ff" 
-                      strokeWidth={2.5} 
-                      dot={false}
-                      activeDot={{ r: 6, stroke: '#00e5ff', strokeWidth: 2, fill: '#060e12' }}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="moisture" 
-                      stroke="#00e676" 
-                      strokeWidth={2.5} 
-                      dot={false}
-                      activeDot={{ r: 6, stroke: '#00e676', strokeWidth: 2, fill: '#060e12' }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-              
-              {/* Pump Status Banner matching mockup exactly */}
-              <div className="mt-1 p-2.5 rounded-lg border border-[rgba(0,230,118,0.15)] bg-[rgba(0,230,118,0.06)] text-xs text-[#00e676] flex items-center justify-between font-medium">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#00e676] pulse-active"></span>
-                  <span>PUMP {telemetry.pump_status} STATUS: {
-                    telemetry.pump_status === 'ON'
-                      ? 'Soil moisture is low. Irrigation pump is running to restore moisture.'
-                      : 'Soil moisture is at optimal level. Pump will automatically start when moisture falls below 45%.'
-                  }</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Sensor History Table Panel */}
-            <div className="glossy-panel p-4 flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>Sensor History</h3>
-                <span className="text-[10px] text-[#80cbc4] border border-[rgba(255,255,255,0.05)] rounded-md px-2 py-0.5">Last 24 Hours</span>
-              </div>
-              
-              {/* Summary stat cards */}
-              <div className="grid grid-cols-3 gap-2 text-center py-1 border-b border-[rgba(255,255,255,0.04)] mb-2">
-                <div className="flex flex-col">
-                  <span className="text-[9px] text-[#80cbc4]">Avg Temperature</span>
-                  <span className="text-xs font-bold text-[#e0f2f1] mt-0.5">28.6°C</span>
-                  <span className="text-[8px] text-[#00e676] mt-0.5">↑ 1.2°C</span>
+                {/* Card 2: Humidity */}
+                <div className="glossy-panel p-4 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#80cbc4] font-semibold">Humidity</span>
+                    <Droplet className="w-5 h-5 text-[#00e5ff]" />
+                  </div>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      {telemetry.humidity}
+                    </span>
+                    <span className="text-sm text-[#80cbc4]">%</span>
+                  </div>
+                  <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Normal</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[9px] text-[#80cbc4]">Avg Humidity</span>
-                  <span className="text-xs font-bold text-[#e0f2f1] mt-0.5">68.4%</span>
-                  <span className="text-[8px] text-red-400 mt-0.5">↓ 3.4%</span>
+
+                {/* Card 3: Moisture */}
+                <div className="glossy-panel p-4 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#80cbc4] font-semibold">Soil Moisture</span>
+                    <Sprout className="w-5 h-5 text-[#00e676]" />
+                  </div>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      {telemetry.soil_moisture}
+                    </span>
+                    <span className="text-sm text-[#80cbc4]">%</span>
+                  </div>
+                  <span className={`text-[10px] py-0.5 px-2 rounded-full self-start ${telemetry.soil_moisture < 45 ? 'text-red-400 bg-[rgba(239,83,80,0.08)]' : 'text-[#00e676] bg-[rgba(0,230,118,0.08)]'}`}>
+                    {telemetry.soil_moisture < 45 ? 'Dry soil' : 'Normal'}
+                  </span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[9px] text-[#80cbc4]">Avg Soil Moisture</span>
-                  <span className="text-xs font-bold text-[#e0f2f1] mt-0.5">48.7%</span>
-                  <span className="text-[8px] text-[#00e676] mt-0.5">↑ 5.6%</span>
+
+                {/* Card 4: Water Level */}
+                <div className="glossy-panel p-4 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#80cbc4] font-semibold">Water Level</span>
+                    <Activity className="w-5 h-5 text-[#29b6f6]" />
+                  </div>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <span className="text-2xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      {telemetry.water_level}
+                    </span>
+                    <span className="text-sm text-[#80cbc4]">%</span>
+                  </div>
+                  <span className="text-[10px] text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded-full self-start">Sufficient</span>
                 </div>
+
+                {/* Card 5: Pump Status */}
+                <div className={`glossy-panel p-4 flex flex-col gap-2 border transition-all duration-300 ${telemetry.pump_status === 'ON' ? 'border-[#00e676] bg-[rgba(0,230,118,0.03)]' : 'border-transparent'}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#80cbc4] font-semibold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>Water Pump</span>
+                    <div className="relative flex h-2 w-2">
+                      <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${telemetry.pump_status === 'ON' ? 'bg-[#00e676]' : 'bg-[#e0f2f1]'}`}></span>
+                      <span className={`relative inline-flex rounded-full h-2 w-2 ${telemetry.pump_status === 'ON' ? 'bg-[#00e676]' : 'bg-[#80cbc4]'}`}></span>
+                    </div>
+                  </div>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <span className={`text-2xl font-extrabold tracking-wide ${telemetry.pump_status === 'ON' ? 'text-[#00e676] text-glow' : 'text-[#80cbc4]'}`} style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      {telemetry.pump_status}
+                    </span>
+                  </div>
+                  <button 
+                    onClick={handlePumpToggle}
+                    className={`text-[8.5px] font-bold uppercase tracking-wider py-0.5 px-2 rounded mt-0.5 self-start transition-all border ${
+                      telemetry.pump_status === 'ON' 
+                        ? 'bg-[rgba(239,83,80,0.1)] text-red-400 border-[rgba(239,83,80,0.2)] hover:bg-red-400 hover:text-[#060e12]' 
+                        : 'bg-[rgba(0,230,118,0.1)] text-[#00e676] border-[rgba(0,230,118,0.2)] hover:bg-[#00e676] hover:text-[#060e12]'
+                    }`}
+                  >
+                    {telemetry.pump_status === 'ON' ? 'Turn OFF' : 'Turn ON'}
+                  </button>
+                </div>
+
               </div>
 
-              {/* Minimal Table */}
-              <div className="flex-1 overflow-y-auto">
-                <table className="w-full text-[10px] text-[#80cbc4]">
-                  <thead>
-                    <tr className="text-[#4db6ac] border-b border-[rgba(255,255,255,0.03)] pb-1 text-left">
-                      <th className="font-semibold pb-1">Time</th>
-                      <th className="font-semibold pb-1 text-center">Temp (°C)</th>
-                      <th className="font-semibold pb-1 text-center">Humidity (%)</th>
-                      <th className="font-semibold pb-1 text-center">Soil Moisture (%)</th>
-                      <th className="font-semibold pb-1 text-right">Pump Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {history.map((row, idx) => (
-                      <tr key={idx} className="border-b border-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.01)]">
-                        <td className="py-1.5 font-medium">{row.time}</td>
-                        <td className="py-1.5 text-center text-[#e0f2f1]">{row.temp}</td>
-                        <td className="py-1.5 text-center text-[#e0f2f1]">{row.humidity}</td>
-                        <td className="py-1.5 text-center text-[#e0f2f1]">{row.moisture}</td>
-                        <td className={`py-1.5 text-right font-semibold ${row.pump === 'ON' ? 'text-[#00e676]' : 'text-[#80cbc4]'}`}>
-                          {row.pump}
-                        </td>
-                      </tr>
+              {/* Row 2: Sensors trend & history */}
+              <div className="trend-history-row">
+                
+                {/* 24 hour trend line chart */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    📈 24-Hour Sensor Readings Trend
+                  </h3>
+                  
+                  <div className="w-full flex-1 min-h-[200px] md:min-h-[220px]" style={{ height: '220px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={trends} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+                        <XAxis dataKey="time" stroke="#80cbc4" style={{ fontSize: '9px', fontWeight: '500' }} />
+                        <YAxis stroke="#80cbc4" style={{ fontSize: '9px', fontWeight: '500' }} />
+                        <Tooltip contentStyle={{ backgroundColor: '#09151b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', color: '#e0f2f1', fontSize: '10px' }} />
+                        <Legend style={{ fontSize: '10px', marginTop: '10px' }} />
+                        <Line type="monotone" dataKey="temp" stroke="#ff9100" strokeWidth={2.5} name="Temp (°C)" dot={false} activeDot={{ r: 6 }} />
+                        <Line type="monotone" dataKey="humidity" stroke="#00e5ff" strokeWidth={2.5} name="Humidity (%)" dot={false} />
+                        <Line type="monotone" dataKey="moisture" stroke="#00e676" strokeWidth={3.5} name="Moisture (%)" dot={false} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* 24 hour history log table */}
+                <div className="glossy-panel p-4 flex flex-col justify-between">
+                  <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    📋 24-Hour Telemetry Log
+                  </h3>
+                  
+                  <div className="flex-1 overflow-y-auto mt-2 pr-1" style={{ maxHeight: '200px' }}>
+                    <table className="w-full text-[10px] text-left text-[#80cbc4]">
+                      <thead>
+                        <tr className="border-b border-[rgba(255,255,255,0.05)] text-[#4db6ac]">
+                          <th className="font-semibold pb-1">Time</th>
+                          <th className="font-semibold pb-1 text-center">Temp (°C)</th>
+                          <th className="font-semibold pb-1 text-center">Humidity (%)</th>
+                          <th className="font-semibold pb-1 text-center">Soil Moisture (%)</th>
+                          <th className="font-semibold pb-1 text-right">Pump Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {history.map((row, idx) => (
+                          <tr key={idx} className="border-b border-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.01)]">
+                            <td className="py-1.5 font-medium">{row.time}</td>
+                            <td className="py-1.5 text-center text-[#e0f2f1]">{row.temp}</td>
+                            <td className="py-1.5 text-center text-[#e0f2f1]">{row.humidity}</td>
+                            <td className="py-1.5 text-center text-[#e0f2f1]">{row.moisture}</td>
+                            <td className={`py-1.5 text-right font-semibold ${row.pump === 'ON' ? 'text-[#00e676]' : 'text-[#80cbc4]'}`}>
+                              {row.pump}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <a href="#" className="text-[10px] text-[#00e676] font-semibold hover:underline mt-2 self-end flex items-center gap-1">
+                    View Full History <ArrowRight className="w-3 h-3" />
+                  </a>
+                </div>
+
+              </div>
+
+              {/* Row 3: Recommended Crops and Yield improvement */}
+              <div className="crop-yield-row">
+                
+                {/* Recommended Crops Panel */}
+                <div className="glossy-panel p-4 flex flex-col gap-4">
+                  <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    🌿 Recommended Crops for Your Farm
+                  </h3>
+                  
+                  <div className="grid grid-cols-4 gap-3">
+                    {crops.map((crop) => (
+                      <div key={crop.id} className="bg-[#09151b] p-3 rounded-lg border border-[rgba(255,255,255,0.02)] flex flex-col gap-2 relative glossy-panel">
+                        <div className="flex items-center justify-between">
+                          <span className="text-lg">{crop.image}</span>
+                          <span className="text-[10px] font-bold text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-1.5 rounded">
+                            {crop.suitability}%
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold text-[#e0f2f1]">{crop.name}</h4>
+                          <span className="text-[8px] text-[#00e676]">{crop.potential}</span>
+                        </div>
+                        <div className="flex flex-col gap-0.5 text-[8px] text-[#80cbc4] border-t border-[rgba(255,255,255,0.04)] pt-1.5 mt-0.5">
+                          <span>Season: {crop.season}</span>
+                          <span>Est. Yield: {crop.est_yield}</span>
+                        </div>
+                        <button className="text-[8px] font-bold text-[#00e676] hover:underline self-start mt-1">View Details</button>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+
+                  <button onClick={() => setActiveTab('Recommendations')} className="text-[10px] text-[#00e676] font-semibold hover:underline self-center flex items-center gap-1 mt-1 bg-transparent border-0 cursor-pointer">
+                    View All Crop Recommendations <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+
+                {/* AI Yield Improvement panel */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    💡 AI Yield Improvement Suggestions
+                  </h3>
+                  
+                  <div className="flex flex-col gap-2 flex-1">
+                    {/* Suggestion 1 */}
+                    <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
+                      <div className="p-1.5 bg-[rgba(0,229,255,0.08)] rounded mt-0.5">
+                        <Droplet className="w-3.5 h-3.5 text-[#00e5ff]" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-[#e0f2f1]">Maintain Soil Moisture</span>
+                          <span className="text-[9px] font-bold text-[#00e676]">+15% Yield</span>
+                        </div>
+                        <p className="text-[8px] text-[#80cbc4] mt-0.5">Current moisture is optimal. Continue regular monitoring.</p>
+                      </div>
+                    </div>
+
+                    {/* Suggestion 2 */}
+                    <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
+                      <div className="p-1.5 bg-[rgba(0,230,118,0.08)] rounded mt-0.5">
+                        <Sprout className="w-3.5 h-3.5 text-[#00e676]" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-[#e0f2f1]">Organic Matter</span>
+                          <span className="text-[9px] font-bold text-[#00e676]">+12% Yield</span>
+                        </div>
+                        <p className="text-[8px] text-[#80cbc4] mt-0.5">Add compost or well-rotted manure for better soil structure.</p>
+                      </div>
+                    </div>
+
+                    {/* Suggestion 3 */}
+                    <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
+                      <div className="p-1.5 bg-[rgba(255,145,0,0.08)] rounded mt-0.5">
+                        <Activity className="w-3.5 h-3.5 text-[#ff9100]" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-[#e0f2f1]">Balanced Nutrition</span>
+                          <span className="text-[9px] font-bold text-[#00e676]">+18% Yield</span>
+                        </div>
+                        <p className="text-[8px] text-[#80cbc4] mt-0.5">Apply NPK 19:19:19 during early growth stage.</p>
+                      </div>
+                    </div>
+
+                    {/* Suggestion 4 */}
+                    <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
+                      <div className="p-1.5 bg-[rgba(255,255,255,0.04)] rounded mt-0.5">
+                        <Sprout className="w-3.5 h-3.5 text-[#80cbc4]" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-[#e0f2f1]">Weed Management</span>
+                          <span className="text-[9px] font-bold text-[#00e676]">+10% Yield</span>
+                        </div>
+                        <p className="text-[8px] text-[#80cbc4] mt-0.5">Keep field clean and free from weeds.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center border-t border-[rgba(255,255,255,0.05)] pt-2 mt-2">
+                    <span className="text-[10px] text-[#80cbc4]">Total Improvement Potential:</span>
+                    <span className="text-xs font-bold text-[#00e676]">+55%</span>
+                  </div>
+                </div>
+
               </div>
 
-              <a href="#" className="text-[10px] text-[#00e676] font-semibold hover:underline mt-2 self-end flex items-center gap-1">
-                View Full History <ArrowRight className="w-3 h-3" />
-              </a>
-            </div>
-
-          </div>
-
-          {/* Row 3: Recommended Crops and Yield improvement */}
-          <div className="crop-yield-row">
-            
-            {/* Recommended Crops Panel */}
-            <div className="glossy-panel p-4 flex flex-col gap-4">
-              <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                🌿 Recommended Crops for Your Farm
-              </h3>
-              
-              <div className="grid grid-cols-4 gap-3">
-                {crops.map((crop) => (
-                  <div key={crop.id} className="bg-[#09151b] p-3 rounded-lg border border-[rgba(255,255,255,0.02)] flex flex-col gap-2 relative glossy-panel">
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg">{crop.image}</span>
-                      <span className="text-[10px] font-bold text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-1.5 rounded">
-                        {crop.suitability}%
-                      </span>
+              {/* Row 4: Bottom components (Schedule, Soil Health, Alerts) */}
+              <div className="bottom-row">
+                
+                {/* Irrigation Schedule */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    📅 Irrigation Schedule
+                  </h3>
+                  
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="flex flex-col gap-1.5 mt-1">
+                      <div className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1.5">
+                        <span className="text-[10px] text-[#80cbc4]">Next Irrigation</span>
+                        <span className="text-[10px] font-bold text-[#e0f2f1]">
+                          {telemetry.pump_status === 'ON' ? 'Tomorrow, 06:00 AM' : 'Estimated Not Required'}
+                        </span>
+                      </div>
+                      <div className="flex justify-between pb-1">
+                        <span className="text-[10px] text-[#80cbc4]">Duration</span>
+                        <span className="text-[10px] font-bold text-[#e0f2f1]">
+                          {telemetry.pump_status === 'ON' ? '45 minutes' : '--'}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-[#e0f2f1]">{crop.name}</h4>
-                      <span className="text-[8px] text-[#00e676]">{crop.potential}</span>
-                    </div>
-                    <div className="flex flex-col gap-0.5 text-[8px] text-[#80cbc4] border-t border-[rgba(255,255,255,0.04)] pt-1.5 mt-0.5">
-                      <span>Season: {crop.season}</span>
-                      <span>Est. Yield: {crop.est_yield}</span>
-                    </div>
-                    <button className="text-[8px] font-bold text-[#00e676] hover:underline self-start mt-1">View Details</button>
-                  </div>
-                ))}
-              </div>
 
-              <a href="#" className="text-[10px] text-[#00e676] font-semibold hover:underline self-center flex items-center gap-1 mt-1">
-                View All Crop Recommendations <ArrowRight className="w-3 h-3" />
-              </a>
-            </div>
-
-            {/* AI Yield Improvement panel */}
-            <div className="glossy-panel p-4 flex flex-col gap-3">
-              <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                💡 AI Yield Improvement Suggestions
-              </h3>
-              
-              <div className="flex flex-col gap-2 flex-1">
-                {/* Suggestion 1 */}
-                <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
-                  <div className="p-1.5 bg-[rgba(0,229,255,0.08)] rounded mt-0.5">
-                    <Droplet className="w-3.5 h-3.5 text-[#00e5ff]" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-[#e0f2f1]">Maintain Soil Moisture</span>
-                      <span className="text-[9px] font-bold text-[#00e676]">+15% Yield</span>
+                    <div className="bg-[rgba(0,230,118,0.05)] p-3 rounded-lg border border-[rgba(0,230,118,0.15)] my-3">
+                      <p className="text-[9px] text-[#00e676] text-center font-semibold">
+                        {telemetry.pump_status === 'ON'
+                          ? 'Pump active. Soil Moisture target is 60%'
+                          : 'Pump will turn ON automatically when soil moisture < 40%'}
+                      </p>
                     </div>
-                    <p className="text-[8px] text-[#80cbc4] mt-0.5">Current moisture is optimal. Continue regular monitoring.</p>
+
+                    <button 
+                      onClick={handlePumpToggle}
+                      className="btn-primary w-full py-1.5 text-xs flex items-center justify-center gap-1.5"
+                    >
+                      <Clock className="w-3.5 h-3.5" />
+                      {telemetry.pump_status === 'ON' ? 'Deactivate Pump' : 'View Schedule'}
+                    </button>
                   </div>
                 </div>
 
-                {/* Suggestion 2 */}
-                <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
-                  <div className="p-1.5 bg-[rgba(0,230,118,0.08)] rounded mt-0.5">
-                    <Sprout className="w-3.5 h-3.5 text-[#00e676]" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-[#e0f2f1]">Organic Matter</span>
-                      <span className="text-[9px] font-bold text-[#00e676]">+12% Yield</span>
+                {/* Soil Health Status */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    🌱 Soil Health Status
+                  </h3>
+                  
+                  <div className="flex gap-4 items-center flex-1">
+                    {/* Circular Progress Gauge */}
+                    <div className="relative w-20 h-20 flex-shrink-0">
+                      <svg className="w-full h-full transform -rotate-90">
+                        <circle 
+                          cx="40" 
+                          cy="40" 
+                          r="32" 
+                          stroke="rgba(255,255,255,0.03)" 
+                          strokeWidth="6" 
+                          fill="transparent" 
+                        />
+                        <circle 
+                          cx="40" 
+                          cy="40" 
+                          r="32" 
+                          stroke="#00e676" 
+                          strokeWidth="6" 
+                          fill="transparent" 
+                          strokeDasharray="201"
+                          strokeDashoffset={201 - (201 * 85) / 100}
+                          className="transition-all duration-1000"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-base font-extrabold text-[#e0f2f1]">85%</span>
+                        <span className="text-[7px] text-[#80cbc4] uppercase tracking-wider font-semibold">Score</span>
+                      </div>
                     </div>
-                    <p className="text-[8px] text-[#80cbc4] mt-0.5">Add compost or well-rotted manure for better soil structure.</p>
-                  </div>
-                </div>
-
-                {/* Suggestion 3 */}
-                <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
-                  <div className="p-1.5 bg-[rgba(255,145,0,0.08)] rounded mt-0.5">
-                    <Activity className="w-3.5 h-3.5 text-[#ff9100]" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-[#e0f2f1]">Balanced Nutrition</span>
-                      <span className="text-[9px] font-bold text-[#00e676]">+18% Yield</span>
+                    
+                    <div className="flex flex-col gap-1.5 flex-1">
+                      {soilHealth.details ? (
+                        soilHealth.details.slice(0, 3).map((item, idx) => (
+                          <div key={idx} className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1 text-[10px]">
+                            <span className="text-[#80cbc4]">{item.metric}</span>
+                            <span className="text-[#e0f2f1] font-bold">{item.value}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <>
+                          <div className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1 text-[10px]">
+                            <span className="text-[#80cbc4]">pH Level</span>
+                            <span className="text-[#e0f2f1] font-bold">6.8</span>
+                          </div>
+                          <div className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1 text-[10px]">
+                            <span className="text-[#80cbc4]">Organic Matter</span>
+                            <span className="text-[#e0f2f1] font-bold">2.3%</span>
+                          </div>
+                        </>
+                      )}
+                      <button onClick={() => setActiveTab('Analytics')} className="text-[8px] font-bold text-[#00e676] hover:underline self-start bg-transparent border-0 cursor-pointer">View Full Report</button>
                     </div>
-                    <p className="text-[8px] text-[#80cbc4] mt-0.5">Apply NPK 19:19:19 during early growth stage.</p>
                   </div>
                 </div>
 
-                {/* Suggestion 4 */}
-                <div className="flex items-start gap-3 bg-[rgba(255,255,255,0.01)] p-2 rounded border border-[rgba(255,255,255,0.02)]">
-                  <div className="p-1.5 bg-[rgba(255,255,255,0.04)] rounded mt-0.5">
-                    <Sprout className="w-3.5 h-3.5 text-[#80cbc4]" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-[#e0f2f1]">Weed Management</span>
-                      <span className="text-[9px] font-bold text-[#00e676]">+10% Yield</span>
-                    </div>
-                    <p className="text-[8px] text-[#80cbc4] mt-0.5">Keep field clean and free from weeds.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex justify-between items-center border-t border-[rgba(255,255,255,0.05)] pt-2 mt-2">
-                <span className="text-[10px] text-[#80cbc4]">Total Improvement Potential:</span>
-                <span className="text-xs font-bold text-[#00e676]">+55%</span>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Row 4: Bottom components (Schedule, Soil Health, Alerts) */}
-          <div className="bottom-row">
-            
-            {/* Irrigation Schedule */}
-            <div className="glossy-panel p-4 flex flex-col gap-3">
-              <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                📅 Irrigation Schedule
-              </h3>
-              
-              <div className="flex-1 flex flex-col justify-between">
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1.5">
-                    <span className="text-[10px] text-[#80cbc4]">Next Irrigation</span>
-                    <span className="text-[10px] font-bold text-[#e0f2f1]">
-                      {telemetry.pump_status === 'ON' ? 'Tomorrow, 06:00 AM' : 'Estimated Not Required'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between pb-1">
-                    <span className="text-[10px] text-[#80cbc4]">Duration</span>
-                    <span className="text-[10px] font-bold text-[#e0f2f1]">
-                      {telemetry.pump_status === 'ON' ? '45 minutes' : '--'}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="bg-[rgba(0,230,118,0.05)] p-3 rounded-lg border border-[rgba(0,230,118,0.15)] my-3">
-                  <p className="text-[9px] text-[#00e676] text-center font-semibold">
-                    {telemetry.pump_status === 'ON'
-                      ? 'Pump active. Soil Moisture target is 60%'
-                      : 'Pump will turn ON automatically when soil moisture < 40%'}
-                  </p>
-                </div>
-
-                <button 
-                  onClick={handlePumpToggle}
-                  className="btn-primary w-full py-1.5 text-xs flex items-center justify-center gap-1.5"
-                >
-                  <Clock className="w-3.5 h-3.5" />
-                  {telemetry.pump_status === 'ON' ? 'Deactivate Pump' : 'View Schedule'}
-                </button>
-              </div>
-            </div>
-            {/* Soil Health Status */}
-            <div className="glossy-panel p-4 flex flex-col gap-3">
-              <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                🌱 Soil Health Status
-              </h3>
-              
-              <div className="flex gap-4 items-center flex-1">
-                {/* Circular Progress Gauge */}
-                <div className="relative w-20 h-20 flex-shrink-0">
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle 
-                      cx="40" 
-                      cy="40" 
-                      r="32" 
-                      stroke="rgba(255,255,255,0.03)" 
-                      strokeWidth="6" 
-                      fill="transparent" 
-                    />
-                    <circle 
-                      cx="40" 
-                      cy="40" 
-                      r="32" 
-                      stroke="#00e676" 
-                      strokeWidth="6" 
-                      fill="transparent" 
-                      strokeDasharray="201"
-                      strokeDashoffset={201 - (201 * 85) / 100}
-                      className="transition-all duration-1000"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-base font-extrabold text-[#e0f2f1]">85%</span>
-                    <span className="text-[7px] text-[#80cbc4] uppercase tracking-wider font-semibold">Health</span>
-                  </div>
-                </div>
-
-                {/* Metrics detail */}
-                <div className="flex-1 flex flex-col gap-1.5 text-[9px]">
-                  {soilHealth ? (
-                    soilHealth.details.map((detail, idx) => (
-                      <div key={idx} className="flex justify-between items-center border-b border-[rgba(255,255,255,0.02)] pb-1">
-                        <span className="text-[#80cbc4]">{detail.metric}</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-[#e0f2f1]">{detail.value}</span>
-                          <span className={`text-[7px] py-px px-1 rounded ${
-                            detail.status === 'Optimal' || detail.status === 'Good' 
-                              ? 'text-[#00e676] bg-[rgba(0,230,118,0.05)]' 
-                              : 'text-[#ff9100] bg-[rgba(255,145,0,0.05)]'
-                          }`}>{detail.status}</span>
+                {/* Real-time Alerts */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    🔔 Active System Warnings
+                  </h3>
+                  
+                  <div className="flex flex-col gap-2 overflow-y-auto max-h-[140px]">
+                    {alerts.map((alert) => (
+                      <div key={alert.id} className="flex items-start gap-2.5 bg-[rgba(255,255,255,0.01)] border border-[rgba(255,255,255,0.02)] p-2 rounded">
+                        <AlertTriangle className={`w-3.5 h-3.5 mt-0.5 ${alert.type === 'pump_on' ? 'text-[#00e676]' : 'text-amber-400'}`} />
+                        <div>
+                          <div className="flex items-center justify-between w-full">
+                            <span className="text-[9px] font-bold text-[#e0f2f1]">{alert.title}</span>
+                            <span className="text-[8px] text-[#80cbc4]">{alert.time}</span>
+                          </div>
+                          <p className="text-[9px] text-[#80cbc4] mt-0.5">{alert.desc}</p>
                         </div>
                       </div>
-                    ))
-                  ) : (
-                    <span className="text-[#80cbc4]">Loading...</span>
-                  )}
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </>
+          )}
+
+          {activeTab === 'Analytics' && (
+            <div className="flex flex-col gap-6">
+              {/* Analytics Header */}
+              <div className="flex justify-between items-center border-b border-[rgba(255,255,255,0.05)] pb-3">
+                <div>
+                  <h2 className="text-lg font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>📊 Field Analytics & Sensors</h2>
+                  <p className="text-xs text-[#80cbc4]">Detailed sensor comparisons and soil nutrient distribution</p>
+                </div>
+                <div className="text-xs text-[#80cbc4]">Active Node: <span className="text-[#00e676] font-bold">Hoskote_Main_ESP32</span></div>
+              </div>
+
+              {/* Analytics Subgrid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Chart 1: Humidity & Temp Line Chart */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🌡️ Temperature vs 💧 Humidity</h3>
+                  <div style={{ width: '100%', height: '220px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={trends} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                        <XAxis dataKey="time" stroke="#80cbc4" style={{ fontSize: '9px' }} />
+                        <YAxis stroke="#80cbc4" style={{ fontSize: '9px' }} />
+                        <Tooltip contentStyle={{ backgroundColor: '#0d1c24', border: '1px solid rgba(255,255,255,0.1)', color: '#e0f2f1' }} />
+                        <Legend style={{ fontSize: '10px' }} />
+                        <Line type="monotone" dataKey="temp" stroke="#ff9100" name="Temp (°C)" strokeWidth={2} activeDot={{ r: 6 }} />
+                        <Line type="monotone" dataKey="humidity" stroke="#00e5ff" name="Humidity (%)" strokeWidth={2} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Chart 2: N-P-K Soil Nutrients Bar Chart */}
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🧪 Soil Health Metrics Detail</h3>
+                  <div className="flex flex-col gap-3 mt-1 text-xs">
+                    {soilHealth.details ? (
+                      soilHealth.details.map((item, idx) => (
+                        <div key={idx} className="flex flex-col gap-1 bg-[rgba(255,255,255,0.01)] border border-[rgba(255,255,255,0.03)] p-3 rounded">
+                          <div className="flex justify-between font-bold">
+                            <span className="text-[#e0f2f1]">{item.metric}</span>
+                            <span className="text-[#00e676]">{item.value} ({item.status})</span>
+                          </div>
+                          <div className="w-full bg-[rgba(255,255,255,0.05)] h-2 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full rounded-full ${item.status === 'Optimal' || item.status === 'Good' ? 'bg-[#00e676]' : 'bg-amber-400'}`}
+                              style={{ width: item.metric.includes('pH') ? '68%' : item.metric.includes('Organic') ? '76%' : '82%' }}
+                            ></div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-[#80cbc4]">Soil Health metrics loading...</p>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <a href="#" className="text-[9px] text-[#00e676] font-semibold hover:underline mt-1 self-center flex items-center gap-1">
-                View Soil Analysis <ArrowRight className="w-3 h-3" />
-              </a>
-            </div>
-
-            {/* Alerts & Notifications */}
-            <div className="glossy-panel p-4 flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-[#e0f2f1] flex items-center gap-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  🔔 Alerts & Notifications
-                </h3>
-                <a href="#" className="text-[10px] text-[#00e676] font-semibold hover:underline">View All</a>
+              {/* Data Insights Summary */}
+              <div className="glossy-panel p-4 grid grid-cols-1 md:grid-cols-3 gap-4 bg-gradient-to-r from-[rgba(12,43,41,0.2)] to-[rgba(10,21,27,0.2)]">
+                <div className="border-r border-[rgba(255,255,255,0.05)] pr-4 flex flex-col gap-1">
+                  <span className="text-xs text-[#80cbc4]">Soil Condition Index</span>
+                  <span className="text-xl font-bold text-[#00e676]">Optimal (85/100)</span>
+                  <span className="text-[10px] text-[#80cbc4]">Excellent moisture retention capability</span>
+                </div>
+                <div className="border-r border-[rgba(255,255,255,0.05)] px-4 flex flex-col gap-1">
+                  <span className="text-xs text-[#80cbc4]">Daily Water Usage</span>
+                  <span className="text-xl font-bold text-[#00e5ff]">120 Liters</span>
+                  <span className="text-[10px] text-[#80cbc4]">Based on average 45min pump cycles</span>
+                </div>
+                <div className="pl-4 flex flex-col gap-1">
+                  <span className="text-xs text-[#80cbc4]">AI Recommendation</span>
+                  <span className="text-xl font-bold text-[#ff9100]">No Action Required</span>
+                  <span className="text-[10px] text-[#80cbc4]">Moisture level is self-sustaining</span>
+                </div>
               </div>
-              
-              <div className="flex flex-col gap-2 flex-1">
-                {alerts.map((alert) => (
-                  <div key={alert.id} className="flex items-start gap-2.5 p-2 rounded bg-[rgba(255,255,255,0.01)] border border-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.02)] transition-all">
-                    <span className="w-2 h-2 rounded-full bg-[#00e676] mt-1.5 flex-shrink-0"></span>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-[#e0f2f1]">{alert.title}</span>
-                        <span className="text-[8px] text-[#80cbc4]">{alert.time}</span>
+            </div>
+          )}
+
+          {activeTab === 'Research' && (
+            <div className="flex flex-col gap-4">
+              <div className="border-b border-[rgba(255,255,255,0.05)] pb-3">
+                <h2 className="text-lg font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>📚 Agricultural Research & Biology</h2>
+                <p className="text-xs text-[#80cbc4]">Agronomic guides and localized research reports for Hoskote region</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#00e676] flex items-center gap-2">
+                    <BookOpen className="w-4 h-4" /> Banana Cultivation Guide
+                  </h3>
+                  <p className="text-xs text-[#80cbc4] leading-relaxed">
+                    Banana plants thrive in warm, high-humidity plateau terrains. Optimal growth requires a soil pH between 6.0 and 7.5. Because banana roots require consistent moisture but are prone to root rot under waterlogged conditions, the **Neuro VP Dhara Core** automatic irrigation trigger keeps the target soil moisture at 60% with short, frequent watering intervals.
+                  </p>
+                  <div className="mt-2 p-2.5 bg-[#09151b] rounded border border-[rgba(255,255,255,0.03)] text-[11px] text-[#80cbc4]">
+                    <strong>Research Fact:</strong> Potassium is the key macronutrient for bunch size and fruit quality. Ensure soil Potassium (K) levels are maintained above 180 mg/kg.
+                  </div>
+                </div>
+
+                <div className="glossy-panel p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-[#00e5ff] flex items-center gap-2">
+                    <Compass className="w-4 h-4" /> Hoskote Region Soil Report
+                  </h3>
+                  <p className="text-xs text-[#80cbc4] leading-relaxed">
+                    Soil types in the Hoskote plateau predominantly consist of red clay loam. This soil has high iron oxide content, good drainage, and high potassium release capacity. However, organic matter (Humus) is typically low (around 1.2%). Adding organic vermicompost is highly recommended to improve nitrogen retention.
+                  </p>
+                  <div className="mt-2 p-2.5 bg-[#09151b] rounded border border-[rgba(255,255,255,0.03)] text-[11px] text-[#80cbc4]">
+                    <strong>Optimal pH Guide:</strong> Ideal soil pH for Turmeric is 5.5 to 6.5, which perfectly matches our current reading of 6.8 with slight amendments.
+                  </div>
+                </div>
+              </div>
+
+              {/* Research Articles List */}
+              <div className="glossy-panel p-4">
+                <h3 className="text-sm font-bold text-[#e0f2f1] mb-3">Recent Agricultural Bulletins</h3>
+                <div className="flex flex-col gap-2.5">
+                  {[
+                    { title: "Managing Soil Salinity in Solar-Powered Micro-Irrigation Systems", date: "Jan 2026", author: "ICAR Bengaluru" },
+                    { title: "Improving Water Use Efficiency for Ginger and Turmeric Intercropping", date: "Feb 2026", author: "UAS GKVK Campus" },
+                    { title: "Mitigating Heat Stress in Open-Field Plantation Crops", date: "Mar 2026", author: "Dhara Core Labs" }
+                  ].map((art, idx) => (
+                    <div key={idx} className="flex justify-between items-center border-b border-[rgba(255,255,255,0.03)] pb-2 last:border-0 last:pb-0">
+                      <div>
+                        <span className="text-xs font-semibold text-[#e0f2f1] hover:text-[#00e676] cursor-pointer transition-all">{art.title}</span>
+                        <p className="text-[10px] text-[#80cbc4]">{art.author}</p>
                       </div>
-                      <p className="text-[9px] text-[#80cbc4] mt-0.5">{alert.desc}</p>
+                      <span className="text-[9px] text-[#80cbc4]">{art.date}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Recommendations' && (
+            <div className="flex flex-col gap-4">
+              <div className="border-b border-[rgba(255,255,255,0.05)] pb-3">
+                <h2 className="text-lg font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🌿 Custom Crop Recommendations</h2>
+                <p className="text-xs text-[#80cbc4]">AI-driven matching scores based on soil NPK, moisture and local Hoskote climate</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {crops.map((crop) => (
+                  <div key={crop.id} className="glossy-panel p-5 flex gap-4">
+                    <span className="text-4xl p-2 bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg self-start">{crop.image}</span>
+                    <div className="flex-1 flex flex-col gap-1.5">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-sm font-bold text-[#e0f2f1]">{crop.name}</h3>
+                        <span className="text-xs font-bold text-[#00e676] bg-[rgba(0,230,118,0.08)] py-0.5 px-2 rounded">
+                          {crop.suitability}% Suitability Match
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-[#00e5ff] font-semibold">{crop.potential}</span>
+                      <p className="text-[11px] text-[#80cbc4] leading-relaxed">
+                        {crop.name === 'Banana' && "Highly suited for current warm weather and rich loam content. High watering frequency matches automated sensor trigger thresholds."}
+                        {crop.name === 'Tea' && "Requires well-drained, acidic soil. Current pH (6.8) is slightly high; organic fertilizer application recommended."}
+                        {crop.name === 'Turmeric' && "Ideal crop for the Hoskote monsoon period. Low risk index and highly tolerant to short water delays."}
+                        {crop.name === 'Ginger' && "Good intercropping candidate with banana. High demand in regional Hoskote APMC market."}
+                      </p>
+                      <div className="flex gap-4 text-[10px] text-[#80cbc4] border-t border-[rgba(255,255,255,0.03)] pt-2 mt-1">
+                        <span>Season: <strong>{crop.season}</strong></span>
+                        <span>Estimated Yield: <strong>{crop.est_yield}</strong></span>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+          )}
 
-          </div>
+          {activeTab === 'Market' && (
+            <div className="flex flex-col gap-4">
+              <div className="border-b border-[rgba(255,255,255,0.05)] pb-3">
+                <h2 className="text-lg font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🛒 Hoskote Local Market Rates</h2>
+                <p className="text-xs text-[#80cbc4]">Live crop selling rates and price trends in local APMC market</p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { name: 'Banana (Robusta)', price: '₹42 / kg', trend: '+12.1%', up: true, demand: 'High' },
+                  { name: 'Ginger (Local)', price: '₹125 / kg', trend: '+5.4%', up: true, demand: 'Very High' },
+                  { name: 'Turmeric (Raw)', price: '₹138 / kg', trend: '-1.2%', up: false, demand: 'Stable' },
+                  { name: 'Tea Leaves', price: '₹240 / kg', trend: 'Stable', up: true, demand: 'Moderate' }
+                ].map((item, idx) => (
+                  <div key={idx} className="glossy-panel p-4 flex flex-col gap-2">
+                    <span className="text-xs text-[#80cbc4] font-semibold">{item.name}</span>
+                    <span className="text-2xl font-bold text-[#e0f2f1]">{item.price}</span>
+                    <div className="flex justify-between items-center mt-1">
+                      <span className={`text-[10px] font-bold ${item.up ? 'text-[#00e676]' : 'text-red-400'}`}>
+                        {item.trend}
+                      </span>
+                      <span className="text-[9px] bg-[#09151b] px-2 py-0.5 rounded-full text-[#80cbc4]">
+                        {item.demand} Demand
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Price Index Chart */}
+              <div className="glossy-panel p-4">
+                <h3 className="text-sm font-bold text-[#e0f2f1] mb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>APMC Price Index - Last 3 Months</h3>
+                <div style={{ width: '100%', height: '180px' }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={[
+                      { month: 'Mar', Ginger: 110, Turmeric: 142, Banana: 36 },
+                      { month: 'Apr', Ginger: 118, Turmeric: 140, Banana: 38 },
+                      { month: 'May', Ginger: 125, Turmeric: 138, Banana: 42 }
+                    ]}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                      <XAxis dataKey="month" stroke="#80cbc4" style={{ fontSize: '10px' }} />
+                      <YAxis stroke="#80cbc4" style={{ fontSize: '10px' }} />
+                      <Tooltip contentStyle={{ backgroundColor: '#0d1c24', border: '1px solid rgba(255,255,255,0.1)', color: '#e0f2f1' }} />
+                      <Legend style={{ fontSize: '10px' }} />
+                      <Line type="monotone" dataKey="Ginger" stroke="#00e5ff" strokeWidth={2} />
+                      <Line type="monotone" dataKey="Turmeric" stroke="#ff9100" strokeWidth={2} />
+                      <Line type="monotone" dataKey="Banana" stroke="#00e676" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Settings' && (
+            <div className="flex flex-col gap-4 max-w-2xl">
+              <div className="border-b border-[rgba(255,255,255,0.05)] pb-3">
+                <h2 className="text-lg font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>⚙️ System Settings</h2>
+                <p className="text-xs text-[#80cbc4]">Manage device configurations and credentials</p>
+              </div>
+
+              <div className="glossy-panel p-6 flex flex-col gap-4">
+                <h3 className="text-sm font-bold text-[#e0f2f1] border-b border-[rgba(255,255,255,0.05)] pb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>📶 WiFi Credentials</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] text-[#80cbc4] font-semibold">SSID</label>
+                    <input type="text" placeholder="DharaCore_WiFi" className="bg-[#09151b] border border-[rgba(255,255,255,0.05)] rounded px-3 py-1.5 text-xs text-[#e0f2f1] focus:outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] text-[#80cbc4] font-semibold">PASSWORD</label>
+                    <input type="password" value="••••••••••••" readOnly className="bg-[#09151b] border border-[rgba(255,255,255,0.05)] rounded px-3 py-1.5 text-xs text-[#e0f2f1] focus:outline-none" />
+                  </div>
+                </div>
+
+                <h3 className="text-sm font-bold text-[#e0f2f1] border-b border-[rgba(255,255,255,0.05)] pb-2 mt-4" style={{ fontFamily: "'Outfit', sans-serif" }}>📡 MQTT Broker Config</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="flex flex-col gap-1.5 col-span-2">
+                    <label className="text-[10px] text-[#80cbc4] font-semibold">HOST</label>
+                    <input type="text" value="broker.hivemq.com" readOnly className="bg-[#09151b] border border-[rgba(255,255,255,0.05)] rounded px-3 py-1.5 text-xs text-[#e0f2f1] focus:outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] text-[#80cbc4] font-semibold">PORT</label>
+                    <input type="text" value="1883" readOnly className="bg-[#09151b] border border-[rgba(255,255,255,0.05)] rounded px-3 py-1.5 text-xs text-[#e0f2f1] focus:outline-none" />
+                  </div>
+                </div>
+
+                <h3 className="text-sm font-bold text-[#e0f2f1] border-b border-[rgba(255,255,255,0.05)] pb-2 mt-4" style={{ fontFamily: "'Outfit', sans-serif" }}>🔥 Firebase Database</h3>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] text-[#80cbc4] font-semibold">DATABASE URL</label>
+                  <input type="text" value="https://neurovpdharacore-default-rtdb.firebaseio.com" readOnly className="bg-[#09151b] border border-[rgba(255,255,255,0.05)] rounded px-3 py-1.5 text-xs text-[#e0f2f1] focus:outline-none" />
+                </div>
+
+                <div className="flex gap-3 justify-end mt-4">
+                  <button className="px-4 py-2 bg-[#0d1c24] hover:bg-[#122732] border border-[rgba(255,255,255,0.05)] text-xs text-[#80cbc4] rounded transition-all">Cancel</button>
+                  <button className="px-4 py-2 bg-[rgba(0,230,118,0.2)] text-[#00e676] border border-[#00e676] hover:bg-[#00e676] hover:text-[#060e12] text-xs font-semibold rounded transition-all">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          )}
 
         </main>
       </div>

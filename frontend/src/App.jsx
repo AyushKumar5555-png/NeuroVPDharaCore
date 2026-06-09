@@ -292,11 +292,11 @@ export default function App() {
             <h3 className="text-xs text-[#4db6ac] uppercase tracking-wider font-semibold">☀️ Live Weather</h3>
             <div className="flex items-end justify-between">
               <div>
-                <span className="text-3xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>30.4<span className="text-lg font-normal">°C</span></span>
+                <span className="text-3xl font-bold font-outfit" style={{ fontFamily: "'Outfit', sans-serif" }}>{telemetry.temperature}<span className="text-lg font-normal">°C</span></span>
                 <p className="text-xs text-[#80cbc4] mt-0.5">Clear Sky</p>
               </div>
               <div className="flex flex-col text-right text-xs text-[#80cbc4] gap-1">
-                <span>💧 Humidity: 77.9%</span>
+                <span>💧 Humidity: {telemetry.humidity}%</span>
                 <span>💨 Wind Speed: 6.8 km/h</span>
               </div>
             </div>
@@ -465,7 +465,7 @@ export default function App() {
                   </h3>
                   
                   <div className="w-full flex-1 min-h-[200px] md:min-h-[220px]" style={{ height: '220px' }}>
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="99%" height={220}>
                       <LineChart data={trends} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
                         <XAxis dataKey="time" stroke="#80cbc4" style={{ fontSize: '9px', fontWeight: '500' }} />
@@ -775,7 +775,7 @@ export default function App() {
                 <div className="glossy-panel p-4 flex flex-col gap-3">
                   <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🌡️ Temperature vs 💧 Humidity</h3>
                   <div style={{ width: '100%', height: '220px' }}>
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="99%" height={220}>
                       <LineChart data={trends} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                         <XAxis dataKey="time" stroke="#80cbc4" style={{ fontSize: '9px' }} />
@@ -960,7 +960,7 @@ export default function App() {
               <div className="glossy-panel p-4">
                 <h3 className="text-sm font-bold text-[#e0f2f1] mb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>APMC Price Index - Last 3 Months</h3>
                 <div style={{ width: '100%', height: '180px' }}>
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="99%" height={180}>
                     <LineChart data={[
                       { month: 'Mar', Ginger: 110, Turmeric: 142, Banana: 36 },
                       { month: 'Apr', Ginger: 118, Turmeric: 140, Banana: 38 },

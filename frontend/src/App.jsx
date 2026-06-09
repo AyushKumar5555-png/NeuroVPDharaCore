@@ -49,7 +49,7 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [trends, setTrends] = useState([]);
   const [crops, setCrops] = useState([]);
-  const [soilHealth, setSoilHealth] = useState(null);
+  const [soilHealth, setSoilHealth] = useState({ overall_score: 85, details: [] });
   const [alerts, setAlerts] = useState([]);
   
   // Interactive Chat State
@@ -708,7 +708,7 @@ export default function App() {
                     </div>
                     
                     <div className="flex flex-col gap-1.5 flex-1">
-                      {soilHealth.details ? (
+                      {soilHealth?.details ? (
                         soilHealth.details.slice(0, 3).map((item, idx) => (
                           <div key={idx} className="flex justify-between border-b border-[rgba(255,255,255,0.02)] pb-1 text-[10px]">
                             <span className="text-[#80cbc4]">{item.metric}</span>
@@ -793,7 +793,7 @@ export default function App() {
                 <div className="glossy-panel p-4 flex flex-col gap-3">
                   <h3 className="text-sm font-bold text-[#e0f2f1]" style={{ fontFamily: "'Outfit', sans-serif" }}>🧪 Soil Health Metrics Detail</h3>
                   <div className="flex flex-col gap-3 mt-1 text-xs">
-                    {soilHealth.details ? (
+                    {soilHealth?.details ? (
                       soilHealth.details.map((item, idx) => (
                         <div key={idx} className="flex flex-col gap-1 bg-[rgba(255,255,255,0.01)] border border-[rgba(255,255,255,0.03)] p-3 rounded">
                           <div className="flex justify-between font-bold">

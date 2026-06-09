@@ -1,0 +1,1025 @@
+
+--- Page 1 ---
+DAYANANDA SAGAR COLLEGE OF ENGINEERING 
+(An Autonomous Institute affiliated to VTU, Belagavi - 590018) 
+Accredited by National Assessment & Accreditation Council (NAAC) with ‘A’ grade 
+Shavige Malleshwara Hills, Kumaraswamy Layout 
+Bengaluru-560111 
+ 
+ 
+Interdisciplinary Project (1BPRJ208) 
+Report on 
+ 
+“NEURO VP DHARA CORE” 
+Submitted in partial fulfillment for the award of degree of 
+ 
+Bachelor of Engineering 
+in 
+Electrical and Electronics Engineering 
+Submitted by 
+ 
+AYUSH KUMAR                        1DS25IC017 
+SOURAV KUMAR                     1DS25IC053 
+ANIKET V PATIL                      1DS25EE012 
+K SATYA PRAKASH                 1DS25EE055 
+ 
+Under the Guidance of 
+Prof Deekshitha Arasa 
+Assistant Professor 
+Department of Electrical & Electronics Engineering 
+and 
+                                                         Department of CSE(IOT & Blockchain) 
+                                                                               DSCE, Bengaluru 
+ 
+ 
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY 
+JNANASANGAMA, BELAGAVI-590018 
+2025-26 
+BATCH NO- A5 
+--- Page 2 ---
+DAYANANDA SAGAR COLLEGE OF ENGINEERING 
+(An Autonomous Institute affiliated to VTU, Belagavi – 590018, Approved by AICTE & ISO 9001:2015 Certified) 
+Accredited by National Assessment & Accreditation Council (NAAC) with ‘A’ grade 
+Shavige Malleshwara Hills, Kumaraswamy Layout 
+Bengaluru-560111 
+2025-2026 
+DEPARTMENT OF ELECTRICAL & ELECTRONICS ENGINEERING 
+(Accredited by NBA Tier 1: 2025-2028) 
+& 
+DEPARTMENT OF CSE (IOT & BLOCKCHAIN) 
+ 
+ 
+CERTIFICATE 
+Certified that the Interdisciplinary project report entitled “Neuro VP Dhara Core” carried out by Ayush Kumar 
+(1DS25IC017), Sourav Kumar (1DS25IC053), Aniket V Patil (1DS25EE0 12), K Satya Prakash 
+(1DS25EE055) are bonafide students of DAYANANDA SAGAR COLLEGE OF ENGINEERING , an 
+autonomous institution affiliated to VTU, Belagavi in partial fulfillment  for the award of Degree of Bachelor of 
+Engineering in Electrical and Electronics Engineering  during the year 2025-2026. It is certified that all 
+corrections/suggestions indicated for Internal Assessment have been incorporated in the report deposited in the 
+departmental library. The project report has been approved as it satisfies the academic requirements in respect of 
+work prescribed for the said Degree. 
+ 
+Signature of the Guide  
+   Deekshitha Arasa 
+              Assistant Professor  
+                 Dept. of  EEE 
+DSCE, Bengaluru 
+Signature of the HOD 
+Dr. Premkumar M. 
+Professor & Head 
+Dept. of EEE 
+DSCE, Bengaluru 
+ 
+ 
+ 
+Name of the Examiners 
+ 
+1. ........................................... 
+ 
+2. ........................................... 
+Signature with date 
+ 
+.......................................... 
+ 
+.......................................... 
+
+--- Page 3 ---
+DAYANANDA SAGAR COLLEGE OF ENGINEERING 
+(An Autonomous Institute affiliated to VTU, Belagavi – 590018, Approved by AICTE & ISO 9001:2015 Certified) 
+Accredited by NBA, National Assessment & Accreditation Council (NAAC) with ‘A’ grade 
+Shavige Malleshwara Hills, Kumaraswamy Layout 
+Bengaluru-560111 
+2025-2026 
+DEPARTMENT OF ELECTRICAL & ELECTRONICS ENGINEERING 
+(Accredited by NBA Tier 1: 2025-2028) 
+& 
+DEPARTMENT OF CSE (IOT & BLOCKCHAIN) 
+ 
+ 
+ 
+DECLARATION 
+ 
+ 
+We, Ayush Kumar (1DS25IC017), Sourav Kumar (1DS25IC053), Aniket V Patil (1DS25EE012), K Satya 
+Prakash (1DS25EE055), hereby declare that the Interdisciplinary project work entitled “Neuro VP Dhara 
+Core” has been independently done by us under the guidance of ‘Deekshitha Arasa’, Assistant Professor 
+, Electrical & Electronics Engineering department and submitted in partial fulfillment of the requirement 
+for the award of the degree of Bachelor of Engineering in Electrical & Electronics Engineering, at 
+Dayananda Sagar College of Engineering, an autonomous institution affiliated to VTU , Belagavi during the 
+academic year 2025-2026. 
+We further declare that we have not submitted this  report either in part or in full to any other university 
+for the award of any degree. 
+                                          
+                                          AYUSH KUMAR                        1DS25IC017 
+SOURAV KUMAR                     1DS25IC053 
+ANIKET V PATIL                      1DS25EE012 
+K SATYA PRAKASH                 1DS25EE055 
+ 
+ 
+PLACE: 
+DATE: 
+
+--- Page 4 ---
+ACKNOWLEDGEMENT 
+ 
+The satisfaction and euphoria that accompany the successful completion of any work would be 
+incomplete without the mention of  people who made it possible and under whose constant 
+guidance and encouragement the project was completed. We express our sincere regards to the 
+Management of Dayananda Sagar College of Engineering, Bengaluru. 
+We express our sincere regards and thanks to Dr. B G Prasad, Principal, Dayananda Sagar 
+College of Engineering, Bengaluru for providing an opportunity to  carry out this project as 
+part of our curriculum. 
+We express our sincere regards and thanks to Dr. Premkumar M, Professor & Head, 
+Department of Electrical and Electronics Engineering and Dr Annapurna B, Professor 
+& Head, Department of CSE(IOT & Blockchain) Dayananda Sagar College of Engineering, 
+Bengaluru for providing the encouragement and support in the successful completion of this 
+project. 
+We would like to express profound gratitude to our guide  Deekshitha Arasa , Assistant 
+Professor , Department of  Electrical and Electronics Engineering, Dayananda Saga r 
+College of Engineering, Bengaluru who has given his/her valuable guidance, constant 
+supervision and timely suggestions provided throughout the course of this project. His/Her 
+continuous support and motivation greatly contributed to the successful completion of our 
+work. 
+We express our sincere thanks to project Coordinator Dr. Sridevi H R, Assistant Professor, 
+Department of Electrical and Electronics Engineering for her continued support and 
+guidance. We thank all teaching and non -teaching staff of both the departments for their kind 
+and constant support throughout the academic journey. 
+ 
+ 
+ 
+                             AYUSH KUMAR                        1DS25IC017 
+SOURAV KUMAR                     1DS25IC053 
+ANIKET V PATIL                      1DS25EE012 
+K SATYA PRAKASH                 1DS25EE055 
+ 
+ 
+ 
+                              
+--- Page 5 ---
+ 
+Department of Electrical and Electronics Engineering 
+(Accredited by NBA Tier 1: 2025-2028) 
+ 
+CO-PO Mapping 
+COURSE OUTCOMES 
+CO1: Identify and define problems requiring interdisciplinary knowledge. 
+CO2: Apply basic concepts of science, engineering and technology to design simple solutions. 
+CO3: Work effectively in teams with defined roles and responsibilities 
+CO4: Use project management, documentation and presentation skills. 
+CO5: Develop socially relevant, sustainable, and innovative prototypes/solutions. 
+CO-PO mapping: 
+ 
+ 
+ PO1 PO2 PO3 PO4 PO5 PO6 PO8 PO9 PO10 PO11 
+CO1 2 1 1 1      1 
+CO2 2 1 1 1      1 
+CO3       2 2  1 
+CO4     1  2 2 1 1 
+CO5     1 2    1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+DAYANANDA SAGAR COLLEGE OF ENGINEERING 
+(An Autonomous Institute affiliated to Visvesvaraya Technological University (VTU), Belagavi, 
+Approved by AICTE and UGC, Accredited by NAAC with 'A' grade & ISO 9001-2015 Certified Institution) 
+Shavige Malleshwara Hills, Kumaraswamy Layout, Bengaluru - 560 111. India 
+--- Page 6 ---
+ 
+--- Page 7 ---
+                                                                                                                                                        NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                          I   
+ABSTRACT 
+ 
+Agriculture accounts for a significant portion of global freshwater consumption, making efficient 
+water management essential for sustainable farming. Traditional irrigation practices often rely 
+on manual observation and estimation of soil conditions, which  can result in overwatering, 
+underwatering, reduced crop productivity, and unnecessary water wastage. To address these 
+challenges, this project presents Neuro VP Dhara Core (Smart  Roots), an IoT-based intelligent 
+soil monitoring and predictive water management system designed for small and medium-scale 
+agricultural applications. 
+The proposed system utilizes an ESP32 microcontroller as the central processing unit, integrated 
+with a Capacitive Soil Moisture Sensor and DHT22 Temperature and Humidity Sensor to 
+continuously monitor environmental and soil conditions. Real -time sensor da ta is collected, 
+processed, and transmitted to cloud platforms for remote monitoring and analysis. Based on 
+predefined moisture thresholds, the system can automatically control a water pump through a 
+relay module, ensuring efficient irrigation and reducing human intervention. 
+In addition to real -time monitoring, the system incorporates AI -assisted recommendations to 
+support informed irrigation decisions and improve overall farm management. The integration of 
+IoT technologies, cloud connectivity, and automation enables farmers t o access live data, 
+optimize water usage, and enhance agricultural productivity. The proposed solution is designed 
+to be affordable, scalable, and suitable for deployment in resource -constrained farming 
+environments. 
+The project demonstrates how smart sensing, automation, and data -driven decision-making can 
+contribute to sustainable agriculture by minimizing water wastage, improving crop health, and 
+supporting environmentally responsible farming practices. 
+ 
+ 
+  
+--- Page 8 ---
+                                                                                                                                                        NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                          II   
+TABLE OF CONTENTS 
+ABSTRACT I 
+TABLE OF CONTENTS II 
+LIST OF FIGURES IV 
+LIST OF TABLES V 
+ 
+INTRODUCTION………………………………………………………………………………..1 
+1.1 Background and Concept 
+1.2 Need for the Project 
+1.3 Problem Statement 
+1.4 Objectives of the Project 
+1.5 Scope and Applications 
+1.6 Expected Outcome  
+LITERATURE SURVEY……………………………………………………………….5 
+2.1         Summary of the Literature Review 
+2.2         Need for the Proposed Project (Research Gap) 
+METHODOLOGY & DESIGN……………………………………………………….8 
+3.1        Block Diagram 
+3.2       Working Principle 
+3.3       Hardware Components Used  
+3.4       Software Components Used 
+IMPLEMENTATION & RESULTS…………………………………………………11 
+4.1       Implementation Steps 
+4.2       Photographs / Screenshots / Circuit / Model images 
+4.3       Observations 
+4.4       Results & Graphs 
+4.5       Output & Web Interface 
+4.6       Limitations 
+ 
+ 
+ 
+--- Page 9 ---
+                                                                                                                                                        NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                          III   
+CONCLUSION AND FUTURE SCOPE…………………………………………...17 
+5.1      Summary of Work / Learning Outcomes 
+5.2      Conclusion 
+5.3      Future Enhancements 
+SDGs MAPPED…………………………………………………………………………19 
+6.1      SDGs Mapped to the Project 
+REFERENCES…………………………………………………………………………..21 
+APPENDIX……………………………………………………………………………….22 
+8.1      Key Components Used 
+8.2      Abbreviations 
+8.3      Project Outcomes 
+8.4      Safety Precautions 
+ 
+  
+--- Page 10 ---
+                                                                                                                                                        NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                          IV   
+LIST OF FIGURES 
+ 
+Figure 3.1 – Block Diagram 8 
+Figure 4.1 – Circuit Design 13 
+Figure 4.2 – Results and Discussion 14 
+Figure 4.2 – Results and Discussion 15 
+Figure 4.4 : Output & Web Interface(1) 15 
+Figure 4.4 : Output & Web Interface(2) 16 
+ 
+--- Page 11 ---
+                                                                                                                                                        NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                          V   
+LIST OF TABLES 
+ 
+Table 2.1 – Literature Survey 5 
+Table 3.1 – Hardware Components 
+Used 9 
+Table 3.2 – Software Components Used 10 
+Table 4.1 – Farmland Survey 
+Information 13 
+Table 4.2 : Sensor Readings and 
+Irrigation Status 14 
+Table 4.3 : Irrigation Decision Summary 14 
+Table 6.1 : SDGs Mapped 20 
+Table 8.1 – Key Components Used 22 
+Table 8.2 - Abbreviations 23 
+ 
+ 
+--- Page 12 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       1 
+CHAPTER 1: INTRODUCTION 
+1.1 Background and Concept 
+Agriculture is one of the most water -intensive sectors, consuming nearly 70% of the world's 
+freshwater resources. Efficient irrigation management is therefore essential for ensuring 
+sustainable agricultural practices and maximizing crop productivity. However, many farmers 
+still rely on traditional irrigation methods that depend on manual observation and estimation 
+of soil conditions. These practices often result in overwatering or underwatering, leading to 
+water wastage, reduced crop yield, and increased operational costs. 
+Recent advancements in the Internet of Things (IoT), embedded systems, and artificial 
+intelligence have enabled the development of smart agriculture solutions capable of 
+monitoring environmental conditions in real time. By integrating sensors, wireless 
+communication, cloud platforms, and automated control systems, farmers can make informed 
+decisions regarding irrigation and crop management. 
+The proposed project, Neuro VP Dhara Core (SmartRoots), is an intelligent soil monitoring 
+and predictive water management system that utilizes an ESP32 microcontroller, soil moisture 
+sensing, temperature and humidity monitoring, cloud connectivity, and AI -assisted 
+recommendations. The system continuously moni tors soil and environmental conditions, 
+provides real -time data visualization, and automatically controls irrigation based on soil 
+moisture levels. This approach helps optimize water usage, improve crop health, and support 
+sustainable farming practices. 
+1.2 Need for the Project 
+Agricultural productivity is highly dependent on proper irrigation and environmental 
+management. Many small and medium -scale farmers lack access to affordable technologies 
+that provide real -time information about soil and climatic conditions. As a result, irrigation 
+decisions are often based on experience or assumptions rather than actual field data. 
+The major needs addressed by this project are: 
+• Lack of real-time soil monitoring systems for small-scale farmers. 
+• Excessive water wastage due to inefficient irrigation practices. 
+• Reduced crop productivity caused by improper soil moisture levels. 
+--- Page 13 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       2 
+• Limited availability of affordable smart farming solutions. 
+• Increasing demand for sustainable and technology-driven agriculture. 
+• Need for automated irrigation systems that minimize human intervention. 
+The proposed system addresses these challenges by providing a cost-effective and intelligent 
+monitoring solution capable of improving irrigation efficiency and resource management. 
+1.3 Problem Statement 
+Agricultural fields often suffer from inefficient irrigation practices due to the absence of 
+continuous soil condition monitoring. Farmers frequently face difficulties in determining the 
+optimal time and quantity of water required for irrigation, resulting  in overwatering, 
+underwatering, increased water consumption, and reduced crop productivity. 
+Furthermore, existing smart farming solutions are often expensive and difficult to deploy for 
+small-scale farmers. Therefore, there is a need for an affordable, reliable, and intelligent 
+monitoring system that can provide real-time soil and environmental data, automate irrigation 
+decisions, and support efficient water management practices. 
+1.4 Objectives of the Project 
+The primary objectives of the project are: 
+1. To monitor soil moisture levels continuously using a capacitive soil moisture sensor. 
+2. To measure environmental temperature and humidity using a DHT22 sensor. 
+3. To develop an ESP32 -based smart monitoring system with wireless communication 
+capabilities. 
+4. To automate irrigation control through a relay -operated water pump based on soil 
+moisture conditions. 
+5. To provide real-time monitoring and data visualization through cloud-based platforms. 
+6. To generate AI -assisted recommendations for better irrigation and agricultural 
+management. 
+7. To reduce water wastage and improve overall agricultural efficiency. 
+--- Page 14 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       3 
+8. To develop an affordable and scalable smart farming solution suitable for small and 
+medium-scale farms. 
+1.5 Scope and Applications 
+The scope of this project extends to smart agriculture and precision farming applications 
+where efficient water management is essential. The system can be deployed in agricultural 
+fields, gardens, nurseries, and greenhouse environments to provide continuous monitoring and 
+automated irrigation support. 
+Applications of the proposed system include: 
+• Precision agriculture and smart farming. 
+• Automated irrigation systems. 
+• Greenhouse monitoring and management. 
+• Home gardens and smart landscaping. 
+• Plant nurseries and horticulture farms. 
+• Agricultural research and experimental farms. 
+• Water conservation projects. 
+• Remote farm monitoring systems. 
+The modular architecture of the system allows future expansion through additional sensors, 
+mobile applications, and advanced AI-based decision-making features. 
+1.6 Expected Outcome 
+The expected outcome of the project is the successful development of an IoT -enabled smart 
+soil monitoring and irrigation management system capable of collecting, processing, and 
+transmitting real-time agricultural data. The system is expected to: 
+• Provide accurate soil moisture, temperature, and humidity monitoring. 
+• Automatically activate irrigation when soil moisture falls below a predefined 
+threshold. 
+• Reduce unnecessary water consumption and improve irrigation efficiency. 
+--- Page 15 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       4 
+• Enable remote monitoring through cloud-based dashboards. 
+• Support farmers with intelligent recommendations for irrigation management. 
+• Improve crop growth conditions through timely watering decisions. 
+• Demonstrate the practical implementation of IoT and automation technologies in 
+agriculture. 
+Ultimately, the project aims to contribute to sustainable agriculture by promoting efficient 
+water utilization, reducing resource wastage, and enhancing farm productivity through smart 
+technology integration. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 16 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       5 
+CHAPTER 2: LITERATURE REVIEW 
+S. 
+No. 
+Title of Work Author(s) Year Key Findings Limitations 
+1 IoT-Based Smart 
+Irrigation System 
+Using Deep 
+Learning 
+Techniques 
+Saranya et al. 2023 Utilized IoT sensors 
+and deep learning 
+algorithms for 
+automated irrigation 
+with high prediction 
+accuracy. 
+High 
+implementation 
+cost and strong 
+dependency on 
+continuous internet 
+connectivity. 
+2 GSM-Based 
+Automated 
+Irrigation 
+Monitoring System 
+Veeramakali 
+et al. 
+2020 Developed a low-cost 
+irrigation automation 
+system using GSM 
+communication for 
+remote monitoring. 
+Limited 
+intelligence and 
+operates primarily 
+on predefined rules 
+without predictive 
+capabilities. 
+3 Random Forest-
+Based Crop 
+Recommendation 
+System Using 
+Machine Learning 
+Apu et al. 2025 Applied machine 
+learning techniques for 
+crop recommendation 
+with good prediction 
+accuracy. 
+Lacks integration 
+with real-time field 
+sensors and 
+automated 
+irrigation control. 
+4 Smart Agriculture 
+Platform (Fasal) 
+Fasal 
+Technologies 
+Commercial Provides AI-driven 
+monitoring, weather 
+prediction, disease 
+alerts, and irrigation 
+recommendations. 
+Expensive for 
+small-scale farmers 
+and requires 
+subscription-based 
+services. 
+5 IoT-Based Soil 
+Moisture Monitoring 
+System 
+Various 
+Researchers 
+2022 Demonstrated real-
+time soil moisture 
+monitoring using 
+wireless sensor 
+networks. 
+Focuses mainly on 
+monitoring and 
+lacks intelligent 
+decision-making 
+support. 
+Table 2.1 – Literature Survey 
+--- Page 17 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       6 
+2.1 Summary of Literature Review 
+The reviewed studies demonstrate the growing adoption of IoT, machine learning, and 
+automation technologies in modern agriculture. Most existing systems provide real -time 
+monitoring, remote access, and irrigation control features. Some solutions also integ rate 
+artificial intelligence for predictive analysis and decision support. 
+However, many of these systems suffer from one or more of the following limitations: 
+• High implementation and maintenance costs. 
+• Dependence on continuous internet connectivity. 
+• Limited support for small and medium-scale farmers. 
+• Lack of integration between sensing, automation, and intelligent recommendations. 
+• Absence of affordable predictive irrigation support. 
+These limitations indicate the need for a cost-effective and scalable smart agriculture solution 
+that combines real-time monitoring, automated irrigation, cloud connectivity, and AI-assisted 
+decision-making. 
+2.2 Need for the Proposed Project (Research Gap) 
+Despite significant advancements in smart agriculture technologies, there remains a gap 
+between sophisticated commercial solutions and the practical needs of small -scale farmers. 
+Existing systems are either expensive, difficult to deploy, or lack intellige nt predictive 
+capabilities. 
+The proposed project, Neuro VP Dhara Core (SmartRoots), addresses these limitations by 
+developing an affordable IoT-based soil monitoring and predictive water management system. 
+The project integrates an ESP32 microcontroller, capacitive soil moisture sens ing, 
+temperature and humidity monitoring, cloud connectivity, and AI -assisted recommendations 
+into a single platform. 
+The proposed system aims to: 
+• Provide real-time monitoring of soil and environmental conditions. 
+• Automate irrigation using moisture-based control logic. 
+--- Page 18 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       7 
+• Reduce water wastage and improve irrigation efficiency. 
+• Offer AI-assisted recommendations for better farm management. 
+• Deliver a low-cost solution suitable for small and medium-scale farmers. 
+• Enable remote monitoring through cloud-based dashboards. 
+By combining sensing, automation, IoT connectivity, and intelligent decision support, the 
+proposed system bridges the gap between traditional irrigation methods and advanced smart 
+farming technologies, thereby contributing to sustainable agricultural development. 
+ 
+Agriculture is increasingly adopting automation and Internet of Things (IoT) technologies to 
+improve productivity, resource management, and sustainability. Several researchers have 
+developed smart irrigation systems that utilize sensors, microcontrollers, and wireless 
+communication technologies to automate irrigation processes and monitor environmental 
+conditions. These systems aim to reduce water wastage, minimize human intervention, and 
+improve crop yield. 
+The following table summarizes some of the important studies related to automated irrigation 
+and soil monitoring systems. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 19 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       8 
+CHAPTER 3 :  METHODOLOGY & DESIGN 
+3.1 Block Diagram 
+The block diagram illustrates the overall architecture of the Neuro VP Dhara Core 
+(SmartRoots) system. The ESP32 microcontroller collects data from the capacitive soil 
+moisture sensor and DHT22 sensor, processes the information, and controls the water pump  
+through a relay module while transmitting real -time data to the cloud dashboard for 
+monitoring and AI-assisted irrigation recommendations. 
+ 
+Figure 3.1 – Block Diagram 
+3.2 Working Principle 
+The Neuro VP Dhara Core (SmartRoots) system operates by continuously monitoring soil and 
+environmental conditions using a Capacitive Soil Moisture Sensor and a DHT22 Temperature 
+and Humidity Sensor. These sensors are interfaced with the ESP32 microcontroll er, which acts 
+as the central processing unit of the system. The entire prototype is powered through a USB 
+
+--- Page 20 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       9 
+connection from a laptop, which also serves as the platform for programming, monitoring, and 
+data visualization. 
+The soil moisture sensor measures the moisture content present in the soil, while the DHT22 
+sensor records the surrounding temperature and humidity. The ESP32 periodically acquires these 
+sensor readings and compares the soil moisture value with a predefine d threshold. If the soil 
+moisture level falls below the threshold, the ESP32 activates a relay module, which switches ON 
+the water pump to irrigate the soil. Once the moisture level reaches the desired range, the relay 
+is deactivated, turning the pump OFF and preventing overwatering. 
+Simultaneously, the collected sensor data is transmitted through Wi -Fi to cloud platforms such 
+as Firebase and HiveMQ for real -time monitoring and storage. The data is displayed on a web 
+dashboard, enabling users to remotely observe field conditions. Based on the collected data, the 
+AI recommendation module analyzes environmental trends and provides intelligent suggestions 
+related to irrigation management and crop care. This integrated approach helps optimize water 
+usage, reduce manual intervention, and improve agricultural productivity through smart decision-
+making. 
+3.3 : Hardware Components Used 
+Sl. 
+No. 
+Hardware 
+Component 
+Specification / Model Purpose 
+1 ESP32 Development 
+Board 
+ESP32-WROOM-32 Main controller for data processing 
+and communication 
+2 Capacitive Soil 
+Moisture Sensor 
+Analog Soil Moisture 
+Sensor 
+Measures soil moisture content 
+3 DHT22 Sensor Temperature & 
+Humidity Sensor 
+Measures ambient temperature and 
+humidity 
+4 Relay Module 1-Channel 5V Relay Controls the water pump 
+automatically 
+5 Mini Water Pump DC Water Pump Provides irrigation when soil 
+moisture is low 
+6 OLED Display 0.96-inch I2C OLED 
+Display 
+Displays real-time sensor data 
+locally 
+7 Jumper Wires Male-to-Male / Male-
+to-Female 
+Electrical interconnections between 
+components 
+8 Breadboard Standard Breadboard Prototype circuit assembly 
+9 Laptop / Computer USB Powered Provides power, programming, and 
+monitoring support 
+Table 3.1 – Hardware Components Used 
+--- Page 21 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       10 
+3.4 : Software Components Used 
+Sl. 
+No. 
+Software / Platform Purpose 
+1 Arduino IDE Writing, compiling, and uploading code to ESP32 
+2 Firebase Cloud database for real-time data storage and 
+monitoring 
+3 HiveMQ MQTT broker for IoT communication and data transfer 
+4 FastAPI Backend API development and data processing 
+5 React.js Dashboard Real-time visualization and monitoring of sensor data 
+6 Google Gemini API (AI 
+Module) 
+Generates intelligent irrigation and farming 
+recommendations 
+7 Web Browser Accessing and monitoring the cloud dashboard 
+Table 3.2 – Software Components Used 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 22 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       11 
+CHAPTER 4 : IMPLEMENTATION & RESULTS 
+4.1 Implementation Steps 
+The implementation of the Neuro VP Dhara Core system was carried out through a systematic 
+integration of hardware and software components. The following steps were followed during 
+the development process: 
+Step 1: Component Selection 
+The required hardware components such as ESP32, Capacitive Soil Moisture Sensor, DHT22 
+Sensor, 16×2 LCD Display with I2C Module, Relay Module, Water Pump, Breadboard, and 
+Jumper Wires were selected based on project requirements. 
+Step 2: Circuit Assembly 
+All components were interconnected using a breadboard and jumper wires. The sensors, display 
+module, relay, and water pump were connected to the ESP32 according to the designed circuit 
+configuration. 
+Step 3: ESP32 Programming 
+The ESP32 was programmed using Arduino IDE. The program was developed to: 
+• Read soil moisture values. 
+• Measure temperature and humidity using DHT22. 
+• Display sensor readings on the LCD. 
+• Control the relay and water pump automatically. 
+• Transmit sensor data through Wi-Fi for cloud monitoring. 
+Step 4: Sensor Calibration 
+The soil moisture sensor was calibrated by observing readings under dry and moist soil 
+conditions. Threshold values were determined to ensure accurate pump activation and 
+deactivation. 
+Step 5: LCD Display Integration 
+--- Page 23 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       12 
+The 16×2 LCD display was interfaced with the ESP32 using the I2C communication protocol. 
+Real-time temperature, humidity, and pump status information were displayed continuously. 
+Step 6: Relay and Pump Testing 
+The relay module was connected to the water pump and tested under different soil moisture 
+conditions. The pump was configured to switch ON when moisture levels dropped below the 
+predefined threshold and switch OFF when sufficient moisture was detected. 
+Step 7: Cloud Connectivity 
+The ESP32 was connected to a Wi -Fi network to enable communication with cloud services 
+such as Firebase and HiveMQ. Sensor data was uploaded periodically for remote monitoring. 
+Step 8: Dashboard Development 
+A web-based dashboard was developed using React.js to visualize real -time sensor readings, 
+irrigation status, and historical data. 
+Step 9: AI Recommendation Integration 
+Collected environmental data was processed through the AI recommendation module to 
+generate intelligent irrigation suggestions and improve water management decisions. 
+Step 10: System Testing and Validation 
+The complete system was tested under different environmental conditions. Sensor readings, 
+pump response, cloud communication, and dashboard performance were monitored to verify 
+proper operation and reliability. 
+Step 11: Performance Evaluation 
+The system performance was evaluated based on sensor accuracy, response time, automation 
+efficiency, and cloud data transmission reliability. The obtained results demonstrated effective 
+monitoring and automated irrigation control. 
+ 
+ 
+ 
+ 
+--- Page 24 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       13 
+4.2 Photographs / Screenshots / Circuit / Model images 
+ 
+Figure 4.1 - Circuit Design 
+4.3 Observation 
+Parameter Value 
+Location Hoskote, Bengaluru Rural District, Karnataka, India 
+Latitude 13.0862° N 
+Longitude 77.7066° E 
+Area Surveyed 2.5 Acres (10,117 m²) 
+Soil Type Red Loamy Soil 
+Crop Type 
+  
+Paddy Cultivation 
+Table 4.1 - Farmland Survey Information 
+ 
+
+--- Page 25 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       14 
+Time Soil Moisture (%) Temperature (°C) Humidity (%) Pump Status 
+06:00 AM 68.5 24.6 78.2 OFF 
+08:00 AM 61.2 27.1 72.8 OFF 
+10:00 AM 52.7 30.4 66.5 OFF 
+12:00 PM 41.8 33.8 58.4 ON 
+02:00 PM 37.2 35.1 54.7 ON 
+04:00 PM 49.6 32.2 60.9 OFF 
+Table 4.2 - Sensor Readings and Irrigation Status 
+Condition Moisture Range (%) Pump Action 
+Moisture Sufficient > 60 OFF 
+Moisture Normal 50 – 60 OFF 
+Moisture Low < 45 ON 
+Moisture Restored > 45 after irrigation OFF 
+Table 4.3 - Irrigation Decision Summary 
+4.4 Results & Graphs 
+ 
+ Figure 4.2 - Results and Discussion 
+
+--- Page 26 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       15 
+ 
+Figure 4.3 - Results and Discussion 
+4.5 Output & Web Interface 
+ 
+Figure 4.4 - Output & Web Interface(1) 
+--- Page 27 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       16 
+ 
+Figure 4.5 - Output &Web Interface(2) 
+4.6 Limitation 
+ 
+• The system monitors only soil moisture, temperature, and humidity, while other important 
+agricultural parameters are not considered. 
+• Real-time monitoring and cloud connectivity depend on the availability of a stable Wi-Fi 
+connection. 
+• Sensor readings are collected from a single location and may not represent the entire field 
+accurately. 
+• The prototype is powered through a laptop USB connection and is not intended for direct 
+standalone field deployment. 
+• The irrigation system operates based on predefined moisture threshold values, which may 
+need adjustment for different crops and soil conditions. 
+ 
+ 
+
+--- Page 28 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       17 
+CHAPTER 5 : CONCLUSION AND FUTURE SCOPE 
+5.1 Summary of Work / Learning Outcomes 
+• Studied the importance of smart irrigation and IoT-based solutions in modern agriculture. 
+• Designed and developed an ESP32 -based intelligent soil monitoring system for agricultural 
+applications. 
+• Interfaced a capacitive soil moisture sensor and DHT22 sensor with the ESP32 microcontroller. 
+• Implemented automatic irrigation control using a relay module and water pump based on soil 
+moisture levels. 
+• Established wireless communication for real-time monitoring and data transmission. 
+• Developed a dashboard for visualizing environmental and soil parameters. 
+• Learned the integration of hardware components, sensors, and cloud -based platforms in an IoT 
+ecosystem. 
+• Gained practical knowledge of embedded programming using Arduino IDE and ESP32. 
+• Understood the application of automation techniques for efficient water management. 
+• Improved skills in circuit design, hardware interfacing, troubleshooting, and system testing. 
+• Analyzed sensor data and evaluated system performance under different environmental conditions. 
+• Demonstrated the potential of smart technologies in reducing water wastage and supporting 
+sustainable agriculture. 
+5.2 Conclusion 
+The Neuro VP Dhara Core project successfully demonstrates the application of Internet of Things (IoT) 
+technology in smart agriculture through real -time soil and environmental monitoring. The system 
+utilizes an ESP32 microcontroller, capacitive soil moistur e sensor, and DHT22 sensor to continuously 
+monitor field conditions and automate irrigation based on soil moisture levels. By integrating sensing, 
+automation, and cloud connectivity, the proposed solution helps reduce water wastage, minimize manual 
+intervention, and improve irrigation efficiency. 
+The developed prototype effectively collects and processes sensor data, displays real-time information, 
+and controls the water pump automatically whenever irrigation is required. The results obtained during 
+testing confirm the reliability of the system in maintaining optimal soil moisture conditions. Overall, the 
+project demonstrates a cost -effective and practical approach toward sustainable agriculture and 
+highlights the potential of smart technologies in improving resource management and agricultural 
+productivity. 
+--- Page 29 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       18 
+5.3 Future Enhancement 
+• Integration of additional sensors such as pH, nutrient, and rainfall sensors for comprehensive soil 
+analysis. 
+• Development of a dedicated mobile application for real-time monitoring and control. 
+• Incorporation of weather forecasting data to improve irrigation decision-making. 
+• Implementation of advanced AI and machine learning algorithms for predictive irrigation and crop 
+recommendations. 
+• Deployment of solar-powered operation for standalone field usage. 
+• Expansion of the system to support multiple sensor nodes for large-scale farm monitoring. 
+• Integration of GPS and geolocation services for location-based agricultural analytics. 
+• Addition of alert and notification systems through SMS, email, or mobile applications. 
+• Enhancement of cloud storage and data analytics features for long-term agricultural insights. 
+• Development of a fully autonomous smart farming platform with minimal human intervention. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 30 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       19 
+CHAPTER 6 : SDGs MAPPED 
+6.1 SDGs Mapped to the Project 
+6.1.1 SDG 7: Affordable and Clean Energy 
+The proposed system is designed using low -power IoT components such as the ESP32 
+microcontroller, making it energy-efficient and suitable for sustainable agricultural applications. By 
+automating irrigation based on real -time soil moisture conditions, the s ystem minimizes 
+unnecessary operation of the water pump, thereby reducing energy consumption. The project 
+demonstrates how smart technologies can optimize resource usage and contribute to energy -
+efficient farming practices. 
+6.1.2 SDG 9: Industry, Innovation and Infrastructure 
+The project integrates modern technologies such as the Internet of Things (IoT), cloud computing, 
+wireless communication, and AI -based recommendations to develop an intelligent irrigation 
+system. It promotes innovation in the agricultural sector by replaci ng conventional irrigation 
+methods with a data -driven and automated approach. The system serves as an example of how 
+advanced technological infrastructure can be utilized to improve agricultural productivity and 
+support the development of smart farming solutions. 
+6.1.3 SDG 13: Climate Action 
+Efficient water management plays a significant role in addressing environmental challenges 
+associated with agriculture. The proposed system continuously monitors soil and environmental 
+conditions, ensuring that irrigation is performed only when necessary. This helps conserve water 
+resources and supports sustainable agricultural practices. By reducing water wastage and 
+encouraging responsible resource utilization, the project contributes to climate-resilient farming and 
+aligns with global efforts toward environmental sustainability and climate action. 
+ 
+ 
+ 
+--- Page 31 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       20 
+SDG 
+No. 
+Sustainable 
+Development Goal 
+Contribution of the Project 
+SDG 
+7 
+Affordable and Clean 
+Energy 
+Reduces energy consumption through efficient and automated 
+irrigation control using low-power IoT devices. 
+SDG 
+9 
+Industry, Innovation and 
+Infrastructure 
+Utilizes IoT, cloud technologies, and AI to develop an 
+innovative smart agriculture solution. 
+SDG 
+13 
+Climate Action Promotes sustainable water management and supports 
+environmentally responsible agricultural practices. 
+Table 6.1 – SDGs Mapped 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 32 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       21 
+CHAPTER 7 : REFERENCES 
+1. Kodali, R. K., and Sahu, A. "An IoT -Based Soil Moisture Monitoring on Losant Platform." 
+Proceedings of the 2nd International Conference on Contemporary Computing and Informatics  
+(2016): 764-768. 
+2. Kamienski, C., Soininen, J. P., Taumberger, M., Dantas, R., Toscano, A., Salmon Cinotti, T., and 
+Filev Maia, R. "Smart Water Management Platform: IoT -Based Precision Irrigation for 
+Agriculture." Sensors 19.2 (2019): 276. 
+3. Patil, V . C., and Kale, N. R. "A Model for Smart Agriculture Using IoT." International Conference 
+on Global Trends in Signal Processing, Information Computing and Communication  (2016): 543-
+545. 
+4. Elijah, O., Rahman, T. A., Orikumhi, I., Leow, C. Y ., and Hindia, M. N. "An Overview of Internet 
+of Things (IoT) and Data Analytics in Agriculture: Benefits and Challenges." IEEE Internet of 
+Things Journal 5.5 (2018): 3758-3773. 
+5. Kim, Y ., Evans, R. G., and Iversen, W. M. "Remote Sensing and Control of an Irrigation System 
+Using a Distributed Wireless Sensor Network." IEEE Transactions on Instrumentation and 
+Measurement 57.7 (2008): 1379-1387. 
+6. Rajput, D. S., and Goyal, R. "Smart Irrigation System Using Internet of Things." International 
+Journal of Innovative Research in Computer and Communication Engineering  8.5 (2020): 2234 -
+2240. 
+7. Sharma, N., Kumar, N., and Suryavanshi, S. "Smart Agriculture Monitoring System Using IoT and 
+Cloud Computing." International Journal of Scientific Research in Computer Science, Engineering 
+and Information Technology 6.2 (2020): 201-207. 
+8. Ray, P. P. "Internet of Things for Smart Agriculture: Technologies, Practices and Future Direction." 
+Journal of Ambient Intelligence and Smart Environments 9.4 (2017): 395-420. 
+ 
+ 
+ 
+ 
+ 
+--- Page 33 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       22 
+CHAPTER 8 : APPENDIX 
+8.1 Key Components Used 
+Component Key Specifications 
+ESP32 Development 
+Board 
+ESP32-WROOM-32, Dual-Core Xtensa LX6 Processor, Up to 240 MHz Clock 
+Frequency, 4 MB Flash Memory, 3.3 V Operating V oltage, Wi-Fi and Bluetooth 
+Enabled, Supports UART, SPI, I2C, PWM, and ADC Communication Protocols 
+Capacitive Soil Moisture 
+Sensor 
+Operating V oltage: 3.3 V–5 V , Analog Output, Corrosion Resistant Design, Used 
+for Soil Moisture Measurement 
+DHT22 Sensor Operating V oltage: 3.3 V–6 V , Temperature Range: -40°C to 80°C, Humidity     
+100% RH, Temperature Accuracy: ±0.5°C, Humidity Accuracy: ±2% RH, Digital 
+Output 
+16×2 LCD Display with 
+I2C Module 
+16 Characters × 2 Lines Display, Operating V oltage: 5 V , I2C Communication 
+Interface, LED Backlight, Used for Real-Time Data Display 
+Relay Module 1-Channel Relay, Operating V oltage: 5 V , Digital Trigger Input, Switching 
+Capacity up to 10 A, Used for Automatic Pump Control 
+Mini Water Pump DC Submersible Water Pump, Operating V oltage: 3 V–6 V , Current Consumption: 
+130–220 mA, Flow Rate: Approximately 80–120 L/hr, Controlled through Relay 
+Module 
+Laptop USB Power 
+Supply 
+Supply V oltage: 5 V DC, USB Powered, Provides Power to ESP32 and Connected 
+Components during Development and Testing 
+ 
+  
+Table 8.1 – Key Components Used 
+--- Page 34 ---
+                                                                                                                                                       NEURO VP DHARA CORE 
+Dept of EEE & Dept of CSE(IOT)DSCE, 2025-2029                                                                                                                                       23 
+8.2  Abbreviations 
+Abbreviation Full Form 
+IoT Internet of Things 
+ESP32 Espress if 32-bit Microcontroller 
+LCD Liquid Crystal Display 
+MQTT Message Queuing Telemetry Transport 
+API Application Programming Interface 
+AI Artificial Intelligence 
+USB Universal Serial Bus 
+                                            Table 8.2 - Abbreviations 
+8.3 Project Outcomes 
+• Real-time monitoring of soil moisture, temperature, and humidity. 
+• Automated irrigation control based on soil moisture levels. 
+• Cloud-based monitoring and data visualization. 
+• AI-assisted recommendations for efficient irrigation management. 
+• Reduction in water wastage through intelligent decision-making. 
+8.4  Safety Precautions 
+• Ensure proper wiring before powering the circuit.  
+• Avoid exposing electronic components to water during testing.  
+• Verify voltage ratings before connecting sensors and modules.  
+• Disconnect power before modifying circuit connections.  
+• Handle the water pump carefully to prevent short circuits. 

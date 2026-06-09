@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #060e12;
+  --panel-bg: linear-gradient(145deg, #0d1c24, #0a151b);
+  --panel-border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* Primary Accent: Emerald / Neon Green */
+  --accent-color: #00e676;
+  --accent-glow: 0 0 15px rgba(0, 230, 118, 0.35);
+  --accent-bg: rgba(0, 230, 118, 0.1);
+
+  /* Alert / Off Accent: Darker or secondary */
+  --accent-off: #757575;
+  --accent-blue: #00e5ff;
+  --accent-orange: #ff9100;
+  
+  /* Text colors */
+  --text-main: #e0f2f1;
+  --text-muted: #80cbc4;
+  --text-sub: #4db6ac;
+
+  /* 3D Depth & Layering Shadows */
+  --shadow-3d: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.7),
+    0 8px 16px -6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+
+  --shadow-glow:
+    0 0 20px rgba(0, 230, 118, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 230, 118, 0.2) rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 230, 118, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 230, 118, 0.4);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+/* Glossy Glassmorphism Effect */
+.glossy-panel {
+  background: var(--panel-bg);
+  border: var(--panel-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-3d);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Gloss reflection highlight */
+.glossy-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 80%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover lift effect for 3D experience */
+.glossy-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 15px 35px -5px rgba(0, 0, 0, 0.8),
+    0 12px 20px -8px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Typography styles */
+h1, h2, h3, .heading-font {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
+
+.title-accent {
+  color: var(--accent-color);
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.9;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+  }
+}
+
+.pulse-active {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Specific component layouts */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Grid layout rules for rows */
+.telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.middle-row {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 16px;
+}
+
+.crop-yield-row {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 16px;
+}
+
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.1fr;
+  gap: 16px;
+}
+
+/* Utility buttons */
+.btn-primary {
+  background: rgba(0, 230, 118, 0.15);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+  background: var(--accent-color);
+  color: #060e12;
+  box-shadow: var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}

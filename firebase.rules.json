@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "state":    { ".read": true, ".write": true },
+    "history":  { ".read": true, ".write": true, ".indexOn": [".key"] },
+    "alerts":   { ".read": true, ".write": true, ".indexOn": [".key"] },
+    "pump_log": { ".read": true, ".write": true, ".indexOn": [".key"] }
+  }
+}

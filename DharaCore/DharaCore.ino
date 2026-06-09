@@ -173,7 +173,7 @@ void setup() {
   pinMode(PIN_MOIST, INPUT);
   digitalWrite(PIN_RELAY, LOW);
   _dht.begin();
-  Wire.begin(21, 22);
+  Wire.begin(18, 19);
   _lcd.init();
   _lcd.backlight();
   _lcd.setCursor(0, 0);
